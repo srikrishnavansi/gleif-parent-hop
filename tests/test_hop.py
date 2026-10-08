@@ -181,3 +181,33 @@ def test_no_em_or_en_dashes_in_copy():
     for f in ["hop.py", "app.py", "static/index.html", "README.md", "Makefile", "tests/test_hop.py"]:
         text = (ROOT / f).read_text()
         assert chr(0x2014) not in text and chr(0x2013) not in text, f  # em dash, en dash
+
+
+def test_approve_refuses_other_sites_and_non_json(tmp_path, monkeypatch):
+    """Regression for a CSRF finding: only the screen's own page may approve."""
+    monkeypatch.setattr(app, "APPROVALS", tmp_path / "approvals.jsonl")
+    srv = app.serve("fixtures", 0)
+    threading.Thread(target=srv.serve_forever, daemon=True).start()
+    port = srv.server_address[1]
+
+    def post(headers):
+        c = http.client.HTTPConnection("127.0.0.1", port, timeout=5)
+        c.request("POST", "/api/approve", body=json.dumps({"lei": "X", "draft": "d"}), headers=headers)
+        return c.getresponse().status
+
+    try:
+        assert post({"Content-Type": "application/json", "Origin": "https://evil.example"}) == 403
+        assert post({"Content-Type": "text/plain", "Origin": f"http://127.0.0.1:{port}"}) == 415
+        assert post({"Content-Type": "application/json", "Host": "attacker.example"}) == 403
+        assert not (tmp_path / "approvals.jsonl").exists()
+        assert post({"Content-Type": "application/json", "Origin": f"http://127.0.0.1:{port}"}) == 200
+    finally:
+        srv.shutdown()
+
+
+def test_every_dynamic_link_goes_through_the_https_check():
+    """Regression for an XSS finding: GLEIF-sourced hrefs must pass safeUrl, never raw."""
+    html = (ROOT / "static" / "index.html").read_text()
+    assert "const safeUrl" in html
+    for chunk in html.split('href="${')[1:]:
+        assert chunk.startswith("esc(safeUrl("), chunk[:60]

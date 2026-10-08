@@ -40,11 +40,12 @@ CASES = [
 
 # GLEIF reporting exception reasons, in plain words.
 REASONS = {
+    # Wording follows GLEIF / LEI ROC policy (leiroc.org/publications/gls/roc_20220107.pdf), checked 2026-10-08.
     "NATURAL_PERSONS": "Controlled by one or more natural persons, with no consolidating company in between.",
-    "NON_CONSOLIDATING": "Controlled by an entity that does not prepare consolidated accounts, such as a foundation, trust or fund.",
+    "NON_CONSOLIDATING": "Controlled by a legal entity not subject to consolidation, so no group accounts link the two (often a foundation, trust or fund).",
     "NO_KNOWN_PERSON": "No known person or entity controls it, for example a widely held listed company.",
-    "NON_PUBLIC": "The parent is known but withheld from GLEIF as non-public.",
-    "NO_LEI": "The parent has no LEI (or has not shared it), so GLEIF holds no record of it.",
+    "NON_PUBLIC": "The relationship information is non-public, which creates obstacles to releasing it, so GLEIF does not show the parent.",
+    "NO_LEI": "The parent does not consent to obtain an LEI, or to let this company obtain one on its behalf, so GLEIF holds no record of it.",
 }
 ROLE_LABEL = {
     "subject": "UK company",

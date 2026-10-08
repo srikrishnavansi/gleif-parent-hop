@@ -168,6 +168,8 @@
 <script>
 const $ = (s, el = document) => el.querySelector(s);
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+// Links come from GLEIF data: only https URLs become hrefs, anything else (javascript:, data:) goes nowhere.
+const safeUrl = u => /^https:\/\//i.test(String(u ?? "")) ? String(u) : "#";
 const words = s => esc(String(s || "").toLowerCase().replace(/_/g, " "));
 const day = iso => iso ? new Date(iso).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" }) : "";
 const ICON = $("#link-icon").innerHTML;
@@ -176,12 +178,12 @@ const EDGE = { direct: "direct parent", ultimate: "ultimate parent", "direct+ult
 let state = { meta: null, data: null, edited: false };
 
 // A value with a link to the GLEIF record and JSON path it was read from.
-const traced = (f, cls = "") => f ? `<span class="${cls}">${esc(f.value)}</span><a class="src" href="${esc(f.src)}" target="_blank" rel="noopener" title="GLEIF: ${esc(f.path)}" aria-label="GLEIF source">${ICON}</a>` : "";
+const traced = (f, cls = "") => f ? `<span class="${cls}">${esc(f.value)}</span><a class="src" href="${esc(safeUrl(f.src))}" target="_blank" rel="noopener" title="GLEIF: ${esc(f.path)}" aria-label="GLEIF source">${ICON}</a>` : "";
 
 async function init() {
   state.meta = await (await fetch("/api/cases")).json();
   const m = state.meta;
-  $("#chips").innerHTML = `<span class="chip">Configured registers: <b>${m.configured.join(", ")}</b></span>
+  $("#chips").innerHTML = `<span class="chip">Configured registers: <b>${esc(m.configured.join(", "))}</b></span>
     <span class="chip ${m.mode === "live" ? "live" : ""}" id="mode">${m.mode === "live" ? "Live: api.gleif.org" : "Recorded GLEIF responses"}</span>`;
   $("#cases").innerHTML = m.cases.map(c => `<button class="case" data-q="${esc(c.q)}" aria-pressed="false">
       <div class="n">${esc(c.label)}</div><div class="s">${esc(c.note)}</div></button>`).join("");
@@ -216,7 +218,7 @@ function strip(d) {
 function node(n, i, d) {
   if (n.kind !== "entity") {
     const code = n.reason ? n.reason.value : "NOT REPORTED";
-    return `<div class="node exc"><div class="node-top"><span class="role">${ROLE[n.role]}</span></div>
+    return `<div class="node exc"><div class="node-top"><span class="role">${esc(ROLE[n.role] || n.role)}</span></div>
       <div class="code">${n.reason ? traced(n.reason) : code}</div><p>${esc(n.explain)}</p>
       <span class="tag gap">GLEIF reporting exception</span></div>`;
   }
@@ -227,7 +229,7 @@ function node(n, i, d) {
     : d.configured.includes(n.country) ? `<span class="tag ok">Configured jurisdiction</span>` : "";
   const lapsed = n.lei_status.value !== "ISSUED" ? `<dt>LEI status</dt><dd>${traced(n.lei_status)}</dd>` : "";
   return `<div class="node ${target ? "target" : ""}">
-    <div class="node-top"><span class="role">${ROLE[n.role]}</span><span class="cc">${esc(n.jurisdiction.value)}</span></div>
+    <div class="node-top"><span class="role">${esc(ROLE[n.role] || n.role)}</span><span class="cc">${esc(n.jurisdiction.value)}</span></div>
     <div class="name">${traced(n.name)}</div>${n.alt_name ? `<div class="alt">${esc(n.alt_name.value)}</div>` : ""}
     <dl class="kv"><dt>LEI</dt><dd class="mono">${esc(n.lei.value)}</dd><dt>Reg. no.</dt><dd>${esc(n.registered_as.value)}</dd><dt>City</dt><dd>${esc(n.city.value)}</dd>${lapsed}</dl>
     ${rel}${tag}</div>`;
@@ -245,7 +247,7 @@ function conn(prev, n) {
 function card(d) {
   const c = d.card, f = c.fields;
   const row = (k, mono) => f[k] ? `<dt>${esc(f[k].label)}</dt><dd>${traced(f[k], mono ? "mono" : "")}</dd>` : "";
-  const site = f.register_site ? `<dt>${esc(f.register_site.label)}</dt><dd><a href="${esc(/^https?:/.test(f.register_site.value) ? f.register_site.value : "https://" + f.register_site.value)}" target="_blank" rel="noopener">${esc(f.register_site.value)}</a><a class="src" href="${esc(f.register_site.src)}" target="_blank" rel="noopener" title="GLEIF: ${esc(f.register_site.path)}">${ICON}</a></dd>` : "";
+  const site = f.register_site ? `<dt>${esc(f.register_site.label)}</dt><dd><a href="${esc(safeUrl(/^https?:/i.test(f.register_site.value) ? f.register_site.value.replace(/^http:/i, "https:") : "https://" + f.register_site.value))}" target="_blank" rel="noopener">${esc(f.register_site.value)}</a><a class="src" href="${esc(safeUrl(f.register_site.src))}" target="_blank" rel="noopener" title="GLEIF: ${esc(f.register_site.path)}">${ICON}</a></dd>` : "";
   const ids = [["parent_lei", "LEI"], ["parent_reg", f.parent_reg?.label === "File no." ? "File no." : "Reg. no."], ["subject_reg", "Companies House"]]
     .filter(([k]) => f[k]).map(([k, l]) => `<span class="id"><span>${l}</span><b class="mono">${esc(f[k].value)}</b><button data-copy="${esc(f[k].value)}">Copy</button></span>`).join("");
   const body = state.edited
@@ -271,7 +273,7 @@ function evidence(d) {
   const items = d.evidence.map(e => {
     const api = e.url.startsWith("https://api.gleif.org/");
     const rec = d.nodes.find(n => n.kind === "entity" && n.url === e.url)?.lei.value;
-    return `<li><span class="why">${esc(e.why)}</span><span class="go"><a href="${esc(e.url)}" target="_blank" rel="noopener">${api ? "API" : "Document"}</a>${rec ? `<a href="https://search.gleif.org/#/record/${esc(rec)}" target="_blank" rel="noopener">Record</a>` : ""}</span>
+    return `<li><span class="why">${esc(e.why)}</span><span class="go"><a href="${esc(safeUrl(e.url))}" target="_blank" rel="noopener">${api ? "API" : "Document"}</a>${rec ? `<a href="https://search.gleif.org/#/record/${esc(rec)}" target="_blank" rel="noopener">Record</a>` : ""}</span>
       <span class="path" title="${esc(e.url)}">${esc(e.url.replace("https://api.gleif.org/api/v1/", ""))}</span></li>`;
   }).join("");
   return `<section class="panel evidence"><h2>Evidence trail</h2><ol class="trail">${items}</ol></section>`;
