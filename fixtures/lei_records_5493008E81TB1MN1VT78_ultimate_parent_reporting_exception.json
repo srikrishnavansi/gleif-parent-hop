@@ -1,0 +1,26 @@
+{
+ "meta": {
+  "goldenCopy": {
+   "publishDate": "2026-10-08T00:00:00Z"
+  }
+ },
+ "data": {
+  "type": "reporting-exceptions",
+  "id": "5493008E81TB1MN1VT78|3|ad08b8ba62f9d72a8148fbd531f4d9ceadf6428a9f8f1cb6c086e7cdb48ea545|ULTIMATE_ACCOUNTING_CONSOLIDATION_PARENT|",
+  "attributes": {
+   "validFrom": null,
+   "validTo": null,
+   "lei": "5493008E81TB1MN1VT78",
+   "category": "ULTIMATE_ACCOUNTING_CONSOLIDATION_PARENT",
+   "reason": "NON_CONSOLIDATING",
+   "reference": null
+  },
+  "relationships": {
+   "lei-record": {
+    "links": {
+     "related": "https://api.gleif.org/api/v1/lei-records/5493008E81TB1MN1VT78"
+    }
+   }
+  }
+ }
+}

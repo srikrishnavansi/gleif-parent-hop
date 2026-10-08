@@ -1,0 +1,79 @@
+{
+ "data": {
+  "type": "registration-authorities",
+  "id": "RA000189",
+  "attributes": {
+   "code": "RA000189",
+   "internationalName": "Register of Companies (Sirene)",
+   "localName": "Sirene",
+   "internationalOrganizationName": "National Institute of Statistics and Economic Studies",
+   "localOrganizationName": "Institut National de la Statistique et des Études Économiques",
+   "website": "https://annuaire-entreprises.data.gouv.fr/",
+   "jurisdictions": [
+    {
+     "country": "France",
+     "countryCode": "FR",
+     "jurisdiction": "France"
+    },
+    {
+     "country": "French Guiana",
+     "countryCode": "GF",
+     "jurisdiction": "French Guiana"
+    },
+    {
+     "country": "French Polynesia",
+     "countryCode": "PF",
+     "jurisdiction": "French Polynesia"
+    },
+    {
+     "country": "Guadeloupe",
+     "countryCode": "GP",
+     "jurisdiction": "Guadeloupe"
+    },
+    {
+     "country": "Martinique",
+     "countryCode": "MQ",
+     "jurisdiction": "Martinique"
+    },
+    {
+     "country": "Mayotte",
+     "countryCode": "YT",
+     "jurisdiction": "Mayotte"
+    },
+    {
+     "country": "New Caledonia",
+     "countryCode": "NC",
+     "jurisdiction": "New Caledonia"
+    },
+    {
+     "country": "Réunion",
+     "countryCode": "RE",
+     "jurisdiction": "Réunion"
+    },
+    {
+     "country": "Saint Barthélemy",
+     "countryCode": "BL",
+     "jurisdiction": "Saint Barthélemy"
+    },
+    {
+     "country": "Saint Martin (French part)",
+     "countryCode": "MF",
+     "jurisdiction": "Saint Martin (French part)"
+    },
+    {
+     "country": "Saint Pierre and Miquelon",
+     "countryCode": "PM",
+     "jurisdiction": "Saint Pierre and Miquelon"
+    },
+    {
+     "country": "Wallis and Futuna",
+     "countryCode": "WF",
+     "jurisdiction": "Wallis and Futuna"
+    }
+   ]
+  },
+  "links": {
+   "self": "https://api.gleif.org/api/v1/registration-authorities/RA000189"
+  }
+ }
+}

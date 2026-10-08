@@ -1,0 +1,63 @@
+{
+ "meta": {
+  "goldenCopy": {
+   "publishDate": "2026-10-08T00:00:00Z"
+  }
+ },
+ "data": {
+  "type": "relationship-records",
+  "id": "213800TR86P337IE8605|LEI|IS_ULTIMATELY_CONSOLIDATED_BY|16|1c01c0ed4225e35f8daf7ab4adc5e5a59dbffe2970b235714202ae61e5ce2eae|",
+  "attributes": {
+   "validFrom": "2025-11-22T00:00:00Z",
+   "validTo": null,
+   "relationship": {
+    "startNode": {
+     "id": "213800TR86P337IE8605",
+     "type": "LEI"
+    },
+    "endNode": {
+     "id": "335800E6C75YGSGD5T66",
+     "type": "LEI"
+    },
+    "type": "IS_ULTIMATELY_CONSOLIDATED_BY",
+    "status": "ACTIVE",
+    "periods": [
+     {
+      "startDate": "2024-04-01T00:00:00Z",
+      "endDate": "2025-03-31T00:00:00Z",
+      "type": "ACCOUNTING_PERIOD"
+     },
+     {
+      "startDate": "2013-09-04T00:00:00Z",
+      "type": "RELATIONSHIP_PERIOD"
+     }
+    ]
+   },
+   "registration": {
+    "initialRegistrationDate": "2013-09-04T00:00:00Z",
+    "lastUpdateDate": "2025-11-21T08:08:32Z",
+    "status": "PUBLISHED",
+    "nextRenewalDate": "2026-12-11T00:00:00Z",
+    "managingLou": "213800WAVVOPS85N2205",
+    "corroborationLevel": "FULLY_CORROBORATED",
+    "corroborationDocuments": "ACCOUNTS_FILING",
+    "corroborationReference": "https://find-and-update.company-information.service.gov.uk/company/02280000/filing-history/MzQ3MzkyNzUxOWFkaXF6a2N4/document?format=pdf&download=0"
+   },
+   "extension": {
+    "deletedAt": null
+   }
+  },
+  "relationships": {
+   "start-node": {
+    "links": {
+     "related": "https://api.gleif.org/api/v1/lei-records/213800TR86P337IE8605"
+    }
+   },
+   "end-node": {
+    "links": {
+     "related": "https://api.gleif.org/api/v1/lei-records/335800E6C75YGSGD5T66"
+    }
+   }
+  }
+ }
+}

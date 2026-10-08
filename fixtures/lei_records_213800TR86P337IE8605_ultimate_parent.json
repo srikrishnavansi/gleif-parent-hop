@@ -1,0 +1,149 @@
+{
+ "meta": {
+  "goldenCopy": {
+   "publishDate": "2026-10-08T00:00:00Z"
+  }
+ },
+ "data": {
+  "type": "lei-records",
+  "id": "335800E6C75YGSGD5T66",
+  "attributes": {
+   "lei": "335800E6C75YGSGD5T66",
+   "entity": {
+    "legalName": {
+     "name": "TATA STEEL LIMITED",
+     "language": "en"
+    },
+    "otherNames": [],
+    "transliteratedOtherNames": [],
+    "legalAddress": {
+     "language": "en",
+     "addressLines": [
+      "BOMBAY HOUSE, 24, HOMI MODY STREET",
+      "FORT, MUMBAI"
+     ],
+     "addressNumber": null,
+     "addressNumberWithinBuilding": null,
+     "mailRouting": null,
+     "city": "MUMBAI",
+     "region": "IN-MH",
+     "country": "IN",
+     "postalCode": "400001"
+    },
+    "headquartersAddress": {
+     "language": "en",
+     "addressLines": [
+      "BOMBAY HOUSE, 24, HOMI MODY STREET",
+      "FORT, MUMBAI"
+     ],
+     "addressNumber": null,
+     "addressNumberWithinBuilding": null,
+     "mailRouting": null,
+     "city": "MUMBAI",
+     "region": "IN-MH",
+     "country": "IN",
+     "postalCode": "400001"
+    },
+    "registeredAt": {
+     "id": "RA000394",
+     "other": null
+    },
+    "registeredAs": "L27100MH1907PLC000260",
+    "jurisdiction": "IN",
+    "category": "GENERAL",
+    "legalForm": {
+     "id": "DDKQ",
+     "other": null
+    },
+    "associatedEntity": {
+     "lei": null,
+     "name": null
+    },
+    "status": "ACTIVE",
+    "expiration": {
+     "date": null,
+     "reason": null
+    },
+    "successorEntity": {
+     "lei": null,
+     "name": null
+    },
+    "successorEntities": [],
+    "creationDate": "1907-08-25T18:30:00Z",
+    "subCategory": null,
+    "otherAddresses": [],
+    "eventGroups": []
+   },
+   "registration": {
+    "initialRegistrationDate": "2017-07-24T06:44:13Z",
+    "lastUpdateDate": "2026-06-06T09:17:21Z",
+    "status": "ISSUED",
+    "nextRenewalDate": "2027-07-23T18:30:00Z",
+    "managingLou": "335800FVH4MOKZS9VH40",
+    "corroborationLevel": "FULLY_CORROBORATED",
+    "validatedAt": {
+     "id": "RA000394",
+     "other": null
+    },
+    "validatedAs": "L27100MH1907PLC000260",
+    "otherValidationAuthorities": []
+   },
+   "bic": null,
+   "mic": null,
+   "ocid": "in/L27100MH1907PLC000260",
+   "qcc": "QIN5SQ54DW",
+   "gem": "E100001010018",
+   "spglobal": [
+    "874170"
+   ],
+   "conformityFlag": "CONFORMING"
+  },
+  "relationships": {
+   "managing-lou": {
+    "links": {
+     "related": "https://api.gleif.org/api/v1/lei-records/335800E6C75YGSGD5T66/managing-lou"
+    }
+   },
+   "lei-issuer": {
+    "links": {
+     "related": "https://api.gleif.org/api/v1/lei-records/335800E6C75YGSGD5T66/lei-issuer"
+    }
+   },
+   "field-modifications": {
+    "links": {
+     "related": "https://api.gleif.org/api/v1/lei-records/335800E6C75YGSGD5T66/field-modifications"
+    }
+   },
+   "direct-parent": {
+    "links": {
+     "reporting-exception": "https://api.gleif.org/api/v1/lei-records/335800E6C75YGSGD5T66/direct-parent-reporting-exception"
+    }
+   },
+   "ultimate-parent": {
+    "links": {
+     "reporting-exception": "https://api.gleif.org/api/v1/lei-records/335800E6C75YGSGD5T66/ultimate-parent-reporting-exception"
+    }
+   },
+   "direct-children": {
+    "links": {
+     "relationship-records": "https://api.gleif.org/api/v1/lei-records/335800E6C75YGSGD5T66/direct-child-relationships",
+     "related": "https://api.gleif.org/api/v1/lei-records/335800E6C75YGSGD5T66/direct-children"
+    }
+   },
+   "ultimate-children": {
+    "links": {
+     "relationship-records": "https://api.gleif.org/api/v1/lei-records/335800E6C75YGSGD5T66/ultimate-child-relationships",
+     "related": "https://api.gleif.org/api/v1/lei-records/335800E6C75YGSGD5T66/ultimate-children"
+    }
+   },
+   "isins": {
+    "links": {
+     "related": "https://api.gleif.org/api/v1/lei-records/335800E6C75YGSGD5T66/isins"
+    }
+   }
+  },
+  "links": {
+   "self": "https://api.gleif.org/api/v1/lei-records/335800E6C75YGSGD5T66"
+  }
+ }
+}

@@ -1,0 +1,24 @@
+{
+ "data": {
+  "type": "registration-authorities",
+  "id": "RA000602",
+  "attributes": {
+   "code": "RA000602",
+   "internationalName": null,
+   "localName": null,
+   "internationalOrganizationName": "Division of Corporations, Department of State",
+   "localOrganizationName": "Division of Corporations, Department of State",
+   "website": "https://corp.delaware.gov/",
+   "jurisdictions": [
+    {
+     "country": "United States of America",
+     "countryCode": "US",
+     "jurisdiction": "Delaware"
+    }
+   ]
+  },
+  "links": {
+   "self": "https://api.gleif.org/api/v1/registration-authorities/RA000602"
+  }
+ }
+}

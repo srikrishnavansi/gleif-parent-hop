@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Parent hop</title>
+<style>
+  :root {
+    --bg: #f4f5f7; --panel: #fff; --line: #e3e6eb; --line-2: #eef0f3;
+    --ink: #14161a; --ink-2: #434a57; --muted: #737b8a;
+    --accent: #2b4bd6; --accent-soft: #eef1fd; --accent-line: #c9d2f7;
+    --ok: #0e7349; --ok-soft: #e8f6ef; --ok-line: #b9e3cd;
+    --warn: #8f5300; --warn-soft: #fff8eb; --warn-line: #f0d29a;
+    --stop: #ad2a1c; --stop-soft: #fdf1ef; --stop-line: #f2c4bd;
+    --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    --radius: 10px;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 13.5px/1.45 -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif; -webkit-font-smoothing: antialiased; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .wrap { max-width: 1440px; margin: 0 auto; padding: 18px 28px 28px; }
+  .mono { font-family: var(--mono); font-size: 12.5px; }
+
+  header.top { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 14px; }
+  .brand { display: flex; align-items: center; gap: 11px; }
+  .glyph { width: 32px; height: 32px; border-radius: 8px; background: var(--ink); display: grid; place-items: center; }
+  h1 { font-size: 17px; margin: 0; letter-spacing: -0.01em; }
+  .brand p { margin: 1px 0 0; color: var(--muted); font-size: 12.5px; }
+  .chips { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+  .chip { border: 1px solid var(--line); background: var(--panel); border-radius: 999px; padding: 4px 10px; font-size: 12px; color: var(--ink-2); white-space: nowrap; }
+  .chip b { color: var(--ink); font-weight: 600; }
+  .chip.live { border-color: var(--ok-line); background: var(--ok-soft); color: var(--ok); }
+
+  nav.cases { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; margin-bottom: 14px; }
+  .case { text-align: left; border: 1px solid var(--line); background: var(--panel); border-radius: 9px; padding: 7px 12px; cursor: pointer; font: inherit; color: var(--ink); min-width: 0; }
+  .case:hover { border-color: var(--accent-line); }
+  .case[aria-pressed="true"] { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+  .case .n { font-weight: 600; font-size: 13px; display: flex; gap: 7px; align-items: center; }
+  .case .s { color: var(--muted); font-size: 11.5px; }
+  .cc { font-family: var(--mono); font-size: 11px; padding: 1px 6px; border-radius: 5px; background: var(--line-2); color: var(--ink-2); font-weight: 500; }
+  .tools { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
+  form.lookup { display: flex; gap: 6px; align-items: center; }
+  form.lookup input { font: inherit; font-family: var(--mono); font-size: 12.5px; width: 220px; padding: 7px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); }
+  form.lookup .btn { padding: 7px 12px; }
+  form.lookup input:focus { outline: 2px solid var(--accent-line); border-color: var(--accent); }
+
+  .btn { font: inherit; font-weight: 600; font-size: 13px; border-radius: 8px; padding: 8px 14px; cursor: pointer; border: 1px solid var(--line); background: var(--panel); color: var(--ink); }
+  .btn:hover { border-color: #c9ced6; }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .btn.primary:hover { background: #2441bd; }
+  .btn:disabled { opacity: .55; cursor: default; }
+
+  .strip { display: flex; align-items: center; gap: 10px; border: 1px solid var(--stop-line); background: var(--stop-soft); border-radius: var(--radius); padding: 9px 14px; margin-bottom: 14px; color: #5c1a12; }
+  .strip.neutral { border-color: var(--line); background: var(--panel); color: var(--ink-2); }
+  .strip .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--stop); flex: none; }
+  .strip.neutral .dot { background: var(--muted); }
+  .strip .run { margin-left: auto; color: var(--ink-2); font-size: 12px; white-space: nowrap; }
+
+  .panel { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); }
+  .panel > h2, .panel-head h2 { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 0; font-weight: 600; }
+  .chain { padding: 14px 16px 16px; margin-bottom: 14px; }
+  .chain-row { display: flex; align-items: stretch; margin-top: 12px; }
+  .node { flex: 1 1 0; min-width: 0; border: 1px solid var(--line); border-radius: 9px; padding: 11px 13px; display: flex; flex-direction: column; gap: 6px; position: relative; background: var(--panel); }
+  .node.target { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+  .node.exc { border: 1px dashed var(--warn-line); background: var(--warn-soft); }
+  .node-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+  .role { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); font-weight: 600; }
+  .node .name { font-weight: 650; font-size: 14px; line-height: 1.3; overflow-wrap: anywhere; }
+  .node .alt { color: var(--ink-2); font-size: 12.5px; margin-top: -4px; }
+  .kv { display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; margin: 0; font-size: 12.5px; }
+  .kv dt { color: var(--muted); }
+  .kv dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+  .link-meta { font-size: 12px; color: var(--ink-2); border-top: 1px solid var(--line-2); padding-top: 6px; }
+  .tag { align-self: flex-start; font-size: 11.5px; font-weight: 600; border-radius: 6px; padding: 2px 8px; border: 1px solid; margin-top: auto; }
+  .tag.ok { color: var(--ok); background: var(--ok-soft); border-color: var(--ok-line); }
+  .tag.stop { color: var(--stop); background: var(--stop-soft); border-color: var(--stop-line); }
+  .tag.gap { color: var(--warn); background: #fff; border-color: var(--warn-line); }
+  .code { font-family: var(--mono); font-weight: 600; font-size: 13px; color: var(--warn); }
+  .node.exc p { margin: 0; color: #5f3d07; font-size: 12.5px; }
+  .node .foot { display: flex; gap: 12px; font-size: 12px; margin-top: auto; padding-top: 2px; }
+  .conn { flex: 0 0 104px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 5px; padding: 0 6px; }
+  .conn .lbl { font-size: 11.5px; color: var(--ink-2); font-weight: 600; text-align: center; line-height: 1.2; }
+  .conn .sub { font-size: 11px; color: var(--muted); text-align: center; line-height: 1.2; }
+  .conn .line { width: 100%; height: 2px; background: #b9bfca; position: relative; }
+  .conn.dashed .line { background: repeating-linear-gradient(90deg, #c69a4a 0 6px, transparent 6px 11px); }
+  .conn .line::after { content: ""; position: absolute; right: -1px; top: -4px; border-left: 8px solid #b9bfca; border-top: 5px solid transparent; border-bottom: 5px solid transparent; }
+  .conn.dashed .line::after { border-left-color: #c69a4a; }
+
+  .grid { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr); gap: 14px; align-items: start; }
+  .card { padding: 14px 16px 16px; }
+  .panel-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
+  .pill { font-size: 11.5px; font-weight: 600; border-radius: 999px; padding: 3px 10px; border: 1px solid var(--warn-line); background: var(--warn-soft); color: var(--warn); white-space: nowrap; }
+  .pill.done { border-color: var(--ok-line); background: var(--ok-soft); color: var(--ok); }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+  .block { border: 1px solid var(--line-2); background: #fafbfc; border-radius: 8px; padding: 10px 12px; }
+  h3 { font-size: 12.5px; margin: 0 0 7px; color: var(--ink); font-weight: 650; }
+  .src { display: inline-grid; place-items: center; width: 15px; height: 15px; border-radius: 4px; margin-left: 4px; vertical-align: -2px; color: #a3a9b5; }
+  .src:hover { background: var(--accent-soft); color: var(--accent); text-decoration: none; }
+  ol.asks { margin: 0 0 12px; padding-left: 20px; display: grid; gap: 6px; }
+  ol.asks li { padding-left: 4px; }
+  ol.asks li::marker { color: var(--muted); font-weight: 600; }
+  .flags { margin: 0 0 12px; display: grid; gap: 6px; }
+  .flag { font-size: 12.5px; color: var(--warn); background: var(--warn-soft); border: 1px solid var(--warn-line); border-radius: 7px; padding: 6px 10px; }
+  .ids { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+  .id { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line); border-radius: 7px; padding: 4px 4px 4px 9px; font-size: 12px; background: var(--panel); }
+  .id span { color: var(--muted); }
+  .id button { font: inherit; font-size: 11px; border: 0; background: var(--line-2); border-radius: 5px; padding: 2px 7px; cursor: pointer; color: var(--ink-2); }
+  .id button:hover { background: var(--accent-soft); color: var(--accent); }
+  .actions { display: flex; align-items: center; gap: 8px; border-top: 1px solid var(--line-2); padding-top: 12px; }
+  .actions small { color: var(--muted); margin-left: 6px; font-size: 12px; }
+  textarea.draft { width: 100%; min-height: 300px; font-family: var(--mono); font-size: 12px; line-height: 1.5; border: 1px solid var(--accent-line); border-radius: 8px; padding: 10px 12px; resize: vertical; margin-bottom: 12px; }
+  pre.draft { white-space: pre-wrap; font-family: var(--mono); font-size: 12px; background: #fafbfc; border: 1px solid var(--line-2); border-radius: 8px; padding: 10px 12px; margin: 0 0 12px; }
+
+  .side { display: grid; gap: 14px; }
+  .evidence { padding: 14px 16px 12px; }
+  ol.trail { list-style: none; margin: 10px 0 0; padding: 0; counter-reset: s; }
+  ol.trail li { counter-increment: s; display: grid; grid-template-columns: 18px minmax(0, 1fr) auto; gap: 1px 8px; padding: 6px 0; border-top: 1px solid var(--line-2); font-size: 12.5px; align-items: baseline; }
+  ol.trail li:first-child { border-top: 0; }
+  ol.trail li::before { content: counter(s); font-family: var(--mono); font-size: 11px; color: var(--muted); }
+  ol.trail .why { min-width: 0; }
+  ol.trail .path { grid-column: 2 / 4; font-family: var(--mono); font-size: 11px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  ol.trail .go { display: flex; gap: 8px; font-size: 12px; white-space: nowrap; }
+  .caveat { padding: 13px 16px; border-left: 3px solid var(--ink); }
+  .caveat strong { display: block; font-size: 13.5px; margin-bottom: 4px; }
+  .caveat p { margin: 0; color: var(--ink-2); font-size: 12.5px; }
+  .empty { padding: 40px; text-align: center; color: var(--muted); }
+  .err { color: var(--stop); }
+
+  @media (max-width: 1100px) {
+    .grid, .two { grid-template-columns: minmax(0, 1fr); }
+    nav.cases { grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); }
+    .strip { flex-wrap: wrap; }
+    .strip .run { margin-left: 18px; }
+    .tools { width: 100%; justify-content: flex-start; }
+    .chain-row { flex-direction: column; }
+    .conn { flex-basis: auto; padding: 8px 0; }
+    .conn .line { width: 2px; height: 22px; }
+    .conn .line::after { right: -4px; top: auto; bottom: -2px; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 8px solid #b9bfca; border-bottom: 0; }
+    form.lookup { margin-left: 0; width: 100%; }
+    form.lookup input { flex: 1; }
+  }
+  @media (max-width: 600px) { .wrap { padding: 14px 16px; } header.top { flex-direction: column; align-items: flex-start; } .chips { justify-content: flex-start; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <div class="glyph" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="4" cy="14" r="2.4" fill="#fff"/><circle cx="16" cy="6" r="2.4" fill="#fff"/><path d="M6.2 12.6 13.8 7.4" stroke="#fff" stroke-width="1.6" stroke-dasharray="2.2 2"/></svg>
+      </div>
+      <div>
+        <h1>Parent hop</h1>
+        <p>The first hop for jurisdictions the ownership agent has not configured</p>
+      </div>
+    </div>
+    <div class="tools"><div class="chips" id="chips"></div>
+      <form class="lookup" id="lookup"><input id="q" placeholder="Companies House no. or LEI" aria-label="Companies House number or LEI" autocomplete="off"><button class="btn">Run hop</button></form></div>
+  </header>
+
+  <nav class="cases" id="cases" aria-label="UK companies"></nav>
+  <div id="main"><div class="empty">Loading</div></div>
+</div>
+
+<template id="link-icon"><svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M5 2H2.5A.5.5 0 0 0 2 2.5v7a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5V7M7 2h3v3M10 2 5.5 6.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></template>
+
+<script>
+const $ = (s, el = document) => el.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const words = s => esc(String(s || "").toLowerCase().replace(/_/g, " "));
+const day = iso => iso ? new Date(iso).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" }) : "";
+const ICON = $("#link-icon").innerHTML;
+const ROLE = { subject: "UK company", direct: "Direct parent", ultimate: "Ultimate parent", "direct+ultimate": "Direct and ultimate parent", above: "Above the ultimate parent" };
+const EDGE = { direct: "direct parent", ultimate: "ultimate parent", "direct+ultimate": "direct and ultimate parent", above: "GLEIF stops" };
+let state = { meta: null, data: null, edited: false };
+
+// A value with a link to the GLEIF record and JSON path it was read from.
+const traced = (f, cls = "") => f ? `<span class="${cls}">${esc(f.value)}</span><a class="src" href="${esc(f.src)}" target="_blank" rel="noopener" title="GLEIF: ${esc(f.path)}" aria-label="GLEIF source">${ICON}</a>` : "";
+
+async function init() {
+  state.meta = await (await fetch("/api/cases")).json();
+  const m = state.meta;
+  $("#chips").innerHTML = `<span class="chip">Configured registers: <b>${m.configured.join(", ")}</b></span>
+    <span class="chip ${m.mode === "live" ? "live" : ""}" id="mode">${m.mode === "live" ? "Live: api.gleif.org" : "Recorded GLEIF responses"}</span>`;
+  $("#cases").innerHTML = m.cases.map(c => `<button class="case" data-q="${esc(c.q)}" aria-pressed="false">
+      <div class="n">${esc(c.label)}</div><div class="s">${esc(c.note)}</div></button>`).join("");
+  $("#cases").addEventListener("click", e => { const b = e.target.closest(".case"); if (b) go(b.dataset.q); });
+  $("#lookup").addEventListener("submit", e => { e.preventDefault(); go($("#q").value); });
+  window.addEventListener("hashchange", () => load(decodeURIComponent(location.hash.slice(1))));
+  load(decodeURIComponent(location.hash.slice(1)) || m.cases[0].q);
+}
+const go = q => { location.hash = encodeURIComponent(q.trim()); };
+
+async function load(q) {
+  document.querySelectorAll(".case").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.q === q)));
+  $("#main").innerHTML = `<div class="empty">Asking GLEIF about ${esc(q)}</div>`;
+  const r = await fetch("/api/hop?q=" + encodeURIComponent(q));
+  const d = await r.json();
+  if (!r.ok) { $("#main").innerHTML = `<div class="panel empty err">${esc(d.error)}</div>`; return; }
+  state.data = d; state.edited = false;
+  if (d.golden_copy && state.meta.mode !== "live") $("#mode").textContent = `Recorded GLEIF responses, golden copy ${day(d.golden_copy)}`;
+  render();
+}
+
+function strip(d) {
+  const run = `<span class="run">${d.lookups} GLEIF lookups, ${d.elapsed_ms} ms</span>`;
+  if (d.status === "foreign") {
+    const t = d.nodes[d.target];
+    return `<div class="strip"><span class="dot"></span><span><b>Dead end for the agent.</b> The first parent outside ${esc(d.configured.join(" and "))} is <b>${esc(t.name.value)}</b>${t.alt_name ? " (" + esc(t.alt_name.value) + ")" : ""}, ${esc(t.jurisdiction.value)}. This hop prepares the request a person would otherwise start from scratch.</span>${run}</div>`;
+  }
+  if (d.status === "configured") return `<div class="strip neutral"><span class="dot"></span><span>Every parent GLEIF reports sits in a configured jurisdiction. The agent's own register tools cover this chain; no hop needed.</span>${run}</div>`;
+  return `<div class="strip neutral"><span class="dot"></span><span>GLEIF names no parent entity for this company, so there is nothing to hop to. Use the Companies House result.</span>${run}</div>`;
+}
+
+function node(n, i, d) {
+  if (n.kind !== "entity") {
+    const code = n.reason ? n.reason.value : "NOT REPORTED";
+    return `<div class="node exc"><div class="node-top"><span class="role">${ROLE[n.role]}</span></div>
+      <div class="code">${n.reason ? traced(n.reason) : code}</div><p>${esc(n.explain)}</p>
+      <span class="tag gap">GLEIF reporting exception</span></div>`;
+  }
+  const target = i === d.target, subject = n.role === "subject";
+  const rel = n.rel ? `<div class="link-meta">${words(n.rel.corroboration.value)}${n.rel.documents.value ? ", " + words(n.rel.documents.value) : ""}${n.rel.period_end ? `, accounts to ${day(n.rel.period_end.value)}` : ""}</div>` : "";
+  const tag = subject ? `<span class="tag ok">Configured: traced by the agent</span>`
+    : target ? `<span class="tag stop">Not configured: hop target</span>`
+    : d.configured.includes(n.country) ? `<span class="tag ok">Configured jurisdiction</span>` : "";
+  const lapsed = n.lei_status.value !== "ISSUED" ? `<dt>LEI status</dt><dd>${traced(n.lei_status)}</dd>` : "";
+  return `<div class="node ${target ? "target" : ""}">
+    <div class="node-top"><span class="role">${ROLE[n.role]}</span><span class="cc">${esc(n.jurisdiction.value)}</span></div>
+    <div class="name">${traced(n.name)}</div>${n.alt_name ? `<div class="alt">${esc(n.alt_name.value)}</div>` : ""}
+    <dl class="kv"><dt>LEI</dt><dd class="mono">${esc(n.lei.value)}</dd><dt>Reg. no.</dt><dd>${esc(n.registered_as.value)}</dd><dt>City</dt><dd>${esc(n.city.value)}</dd>${lapsed}</dl>
+    ${rel}${tag}</div>`;
+}
+
+function conn(prev, n) {
+  const dashed = prev.kind !== "entity" || n.kind !== "entity";
+  let sub = "";
+  if (n.kind === "entity" && n.rel) sub = n.rel.type.value.includes("ULTIMATELY") && !n.role.includes("direct") ? "ultimately consolidated by" : "consolidated by";
+  if (n.role === "ultimate" && prev.kind !== "entity") sub = "intermediates not reported";
+  if (n.role === "above") sub = "reported reason";
+  return `<div class="conn ${dashed ? "dashed" : ""}"><span class="lbl">${EDGE[n.role]}</span><div class="line"></div><span class="sub">${sub}</span></div>`;
+}
+
+function card(d) {
+  const c = d.card, f = c.fields;
+  const row = (k, mono) => f[k] ? `<dt>${esc(f[k].label)}</dt><dd>${traced(f[k], mono ? "mono" : "")}</dd>` : "";
+  const site = f.register_site ? `<dt>${esc(f.register_site.label)}</dt><dd><a href="${esc(/^https?:/.test(f.register_site.value) ? f.register_site.value : "https://" + f.register_site.value)}" target="_blank" rel="noopener">${esc(f.register_site.value)}</a><a class="src" href="${esc(f.register_site.src)}" target="_blank" rel="noopener" title="GLEIF: ${esc(f.register_site.path)}">${ICON}</a></dd>` : "";
+  const ids = [["parent_lei", "LEI"], ["parent_reg", f.parent_reg?.label === "File no." ? "File no." : "Reg. no."], ["subject_reg", "Companies House"]]
+    .filter(([k]) => f[k]).map(([k, l]) => `<span class="id"><span>${l}</span><b class="mono">${esc(f[k].value)}</b><button data-copy="${esc(f[k].value)}">Copy</button></span>`).join("");
+  const body = state.edited
+    ? `<pre class="draft">${esc(c.draft)}</pre><div class="flags"><div class="flag">Edited by the analyst. Values in the text are no longer checked against GLEIF.</div></div>`
+    : `<div class="two">
+        <div class="block"><h3>Where to ask</h3><dl class="kv">${row("register_name")}${row("register_org")}${row("register_local")}${row("register_area")}${row("register_country")}${site}${row("parent_ra", true)}</dl></div>
+        <div class="block"><h3>Entity to ask about</h3><dl class="kv">${row("parent_name")}${row("parent_alt")}${row("parent_reg", true)}${row("parent_lei", true)}${row("parent_jur")}${row("parent_city")}</dl></div>
+      </div>
+      <h3>What to request</h3>
+      <ol class="asks">${c.asks.map(a => `<li>${esc(a.text)}</li>`).join("")}</ol>
+      ${c.flags.length ? `<div class="flags">${c.flags.map(x => `<div class="flag">${esc(x)}</div>`).join("")}</div>` : ""}
+      <h3>Identifiers to quote</h3><div class="ids">${ids}</div>`;
+  return `<section class="panel card" id="card">
+    <div class="panel-head"><h2>Document request, pre-filled from GLEIF</h2><span class="pill" id="status">Draft: needs analyst approval</span></div>
+    ${body}
+    <div class="actions" id="actions">
+      <button class="btn primary" id="approve">Approve</button><button class="btn" id="edit">Edit</button>
+      <small>Approving files the request in the case log. Nothing is sent from this screen.</small>
+    </div></section>`;
+}
+
+function evidence(d) {
+  const items = d.evidence.map(e => {
+    const api = e.url.startsWith("https://api.gleif.org/");
+    const rec = d.nodes.find(n => n.kind === "entity" && n.url === e.url)?.lei.value;
+    return `<li><span class="why">${esc(e.why)}</span><span class="go"><a href="${esc(e.url)}" target="_blank" rel="noopener">${api ? "API" : "Document"}</a>${rec ? `<a href="https://search.gleif.org/#/record/${esc(rec)}" target="_blank" rel="noopener">Record</a>` : ""}</span>
+      <span class="path" title="${esc(e.url)}">${esc(e.url.replace("https://api.gleif.org/api/v1/", ""))}</span></li>`;
+  }).join("");
+  return `<section class="panel evidence"><h2>Evidence trail</h2><ol class="trail">${items}</ol></section>`;
+}
+
+function render() {
+  const d = state.data;
+  let chain = "";
+  d.nodes.forEach((n, i) => { chain += (i ? conn(d.nodes[i - 1], n) : "") + node(n, i, d); });
+  $("#main").innerHTML = strip(d) +
+    `<section class="panel chain"><h2>Ownership chain reported to GLEIF</h2><div class="chain-row">${chain}</div></section>
+    <div class="grid">${d.card ? card(d) : `<section class="panel empty">No request needed for this company.</section>`}
+      <div class="side">${evidence(d)}
+        <section class="panel caveat"><strong>GLEIF parents are accounting-consolidation parents, not beneficial owners.</strong>
+          <p>A company appears here because it consolidates the one below it in its financial statements. That says nothing on its own about the people who own or control it. This screen prepares the human step and never replaces it: the analyst approves the request, and the owners come from the documents that return.</p></section>
+      </div></div>`;
+  wire();
+}
+
+function wire() {
+  document.querySelectorAll("[data-copy]").forEach(b => b.onclick = () => { navigator.clipboard?.writeText(b.dataset.copy); b.textContent = "Copied"; setTimeout(() => b.textContent = "Copy", 1200); });
+  const approve = $("#approve"), edit = $("#edit");
+  if (!approve) return;
+  edit.onclick = () => {
+    const box = $("#card");
+    const keep = $("#actions").outerHTML;
+    box.innerHTML = `<div class="panel-head"><h2>Edit the request</h2><span class="pill">Editing</span></div>
+      <textarea class="draft" id="draft">${esc(state.data.card.draft)}</textarea>
+      <div class="actions"><button class="btn primary" id="save">Save</button><button class="btn" id="cancel">Cancel</button><small>Your text replaces the generated draft.</small></div>`;
+    $("#draft").focus();
+    $("#cancel").onclick = render;
+    $("#save").onclick = () => { state.data.card.draft = $("#draft").value; state.edited = true; render(); };
+  };
+  approve.onclick = async () => {
+    approve.disabled = edit.disabled = true;
+    const r = await fetch("/api/approve", { method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ lei: state.data.nodes[0].lei.value, edited: state.edited, draft: state.data.card.draft }) });
+    const j = await r.json();
+    const s = $("#status");
+    if (r.ok) { s.textContent = `Approved ${new Date().toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })}, filed in ${j.saved_to}`; s.classList.add("done"); approve.textContent = "Approved"; }
+    else { s.textContent = j.error || "Could not save"; approve.disabled = edit.disabled = false; }
+  };
+}
+
+init();
+</script>
+</body>
+</html>

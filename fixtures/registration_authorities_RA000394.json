@@ -1,0 +1,24 @@
+{
+ "data": {
+  "type": "registration-authorities",
+  "id": "RA000394",
+  "attributes": {
+   "code": "RA000394",
+   "internationalName": "Companies Register",
+   "localName": null,
+   "internationalOrganizationName": "Ministry of Corporate Affairs",
+   "localOrganizationName": null,
+   "website": "http://www.mca.gov.in/MCA21/",
+   "jurisdictions": [
+    {
+     "country": "India",
+     "countryCode": "IN",
+     "jurisdiction": "India"
+    }
+   ]
+  },
+  "links": {
+   "self": "https://api.gleif.org/api/v1/registration-authorities/RA000394"
+  }
+ }
+}

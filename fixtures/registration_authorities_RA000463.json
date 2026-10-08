@@ -1,0 +1,24 @@
+{
+ "data": {
+  "type": "registration-authorities",
+  "id": "RA000463",
+  "attributes": {
+   "code": "RA000463",
+   "internationalName": "Business Register",
+   "localName": "Handelsregister",
+   "internationalOrganizationName": "The Netherlands Chamber of Commerce",
+   "localOrganizationName": "Kamer van Koophandel",
+   "website": "www.kvk.nl/english",
+   "jurisdictions": [
+    {
+     "country": "Netherlands",
+     "countryCode": "NL",
+     "jurisdiction": "Netherlands"
+    }
+   ]
+  },
+  "links": {
+   "self": "https://api.gleif.org/api/v1/registration-authorities/RA000463"
+  }
+ }
+}

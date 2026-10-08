@@ -1,0 +1,176 @@
+{
+ "meta": {
+  "goldenCopy": {
+   "publishDate": "2026-10-08T00:00:00Z"
+  }
+ },
+ "data": {
+  "type": "lei-records",
+  "id": "549300T6IPOCDWLKC615",
+  "attributes": {
+   "lei": "549300T6IPOCDWLKC615",
+   "entity": {
+    "legalName": {
+     "name": "株式会社 日立製作所",
+     "language": "ja"
+    },
+    "otherNames": [
+     {
+      "name": "Hitachi,Ltd.",
+      "language": "en",
+      "type": "ALTERNATIVE_LANGUAGE_LEGAL_NAME"
+     }
+    ],
+    "transliteratedOtherNames": [],
+    "legalAddress": {
+     "language": "ja",
+     "addressLines": [
+      "丸の内一丁目6番6号"
+     ],
+     "addressNumber": null,
+     "addressNumberWithinBuilding": null,
+     "mailRouting": null,
+     "city": "東京都 千代田区",
+     "region": null,
+     "country": "JP",
+     "postalCode": "100-8280"
+    },
+    "headquartersAddress": {
+     "language": "ja",
+     "addressLines": [
+      "丸の内一丁目6番6号"
+     ],
+     "addressNumber": null,
+     "addressNumberWithinBuilding": null,
+     "mailRouting": null,
+     "city": "東京都 千代田区",
+     "region": null,
+     "country": "JP",
+     "postalCode": "100-8280"
+    },
+    "registeredAt": {
+     "id": "RA000412",
+     "other": null
+    },
+    "registeredAs": "0100-01-008844",
+    "jurisdiction": "JP",
+    "category": "GENERAL",
+    "legalForm": {
+     "id": "T417",
+     "other": null
+    },
+    "associatedEntity": {
+     "lei": null,
+     "name": null
+    },
+    "status": "ACTIVE",
+    "expiration": {
+     "date": null,
+     "reason": null
+    },
+    "successorEntity": {
+     "lei": null,
+     "name": null
+    },
+    "successorEntities": [],
+    "creationDate": "1920-01-31T15:00:00Z",
+    "subCategory": null,
+    "otherAddresses": [
+     {
+      "fieldType": "OtherAddress",
+      "language": "en",
+      "type": "ALTERNATIVE_LANGUAGE_LEGAL_ADDRESS",
+      "addressLines": [
+       "6-6,Marunouchi, 1-chome"
+      ],
+      "city": "Chiyoda-ku Tokyo",
+      "country": "JP",
+      "postalCode": "100-8280"
+     },
+     {
+      "fieldType": "OtherAddress",
+      "language": "en",
+      "type": "ALTERNATIVE_LANGUAGE_HEADQUARTERS_ADDRESS",
+      "addressLines": [
+       "6-6,Marunouchi, 1-chome"
+      ],
+      "city": "Chiyoda-ku Tokyo",
+      "country": "JP",
+      "postalCode": "100-8280"
+     }
+    ],
+    "eventGroups": []
+   },
+   "registration": {
+    "initialRegistrationDate": "2014-03-18T01:40:00Z",
+    "lastUpdateDate": "2025-10-26T00:00:25Z",
+    "status": "ISSUED",
+    "nextRenewalDate": "2026-10-26T00:30:00Z",
+    "managingLou": "353800279ADEFGKNTV65",
+    "corroborationLevel": "FULLY_CORROBORATED",
+    "validatedAt": {
+     "id": "RA000412",
+     "other": null
+    },
+    "validatedAs": "0100-01-008844",
+    "otherValidationAuthorities": []
+   },
+   "bic": null,
+   "mic": null,
+   "ocid": null,
+   "qcc": "QJP48QJ4GH",
+   "gem": null,
+   "spglobal": [
+    "142747"
+   ],
+   "conformityFlag": "CONFORMING"
+  },
+  "relationships": {
+   "managing-lou": {
+    "links": {
+     "related": "https://api.gleif.org/api/v1/lei-records/549300T6IPOCDWLKC615/managing-lou"
+    }
+   },
+   "lei-issuer": {
+    "links": {
+     "related": "https://api.gleif.org/api/v1/lei-records/549300T6IPOCDWLKC615/lei-issuer"
+    }
+   },
+   "field-modifications": {
+    "links": {
+     "related": "https://api.gleif.org/api/v1/lei-records/549300T6IPOCDWLKC615/field-modifications"
+    }
+   },
+   "direct-parent": {
+    "links": {
+     "reporting-exception": "https://api.gleif.org/api/v1/lei-records/549300T6IPOCDWLKC615/direct-parent-reporting-exception"
+    }
+   },
+   "ultimate-parent": {
+    "links": {
+     "reporting-exception": "https://api.gleif.org/api/v1/lei-records/549300T6IPOCDWLKC615/ultimate-parent-reporting-exception"
+    }
+   },
+   "direct-children": {
+    "links": {
+     "relationship-records": "https://api.gleif.org/api/v1/lei-records/549300T6IPOCDWLKC615/direct-child-relationships",
+     "related": "https://api.gleif.org/api/v1/lei-records/549300T6IPOCDWLKC615/direct-children"
+    }
+   },
+   "ultimate-children": {
+    "links": {
+     "relationship-records": "https://api.gleif.org/api/v1/lei-records/549300T6IPOCDWLKC615/ultimate-child-relationships",
+     "related": "https://api.gleif.org/api/v1/lei-records/549300T6IPOCDWLKC615/ultimate-children"
+    }
+   },
+   "isins": {
+    "links": {
+     "related": "https://api.gleif.org/api/v1/lei-records/549300T6IPOCDWLKC615/isins"
+    }
+   }
+  },
+  "links": {
+   "self": "https://api.gleif.org/api/v1/lei-records/549300T6IPOCDWLKC615"
+  }
+ }
+}

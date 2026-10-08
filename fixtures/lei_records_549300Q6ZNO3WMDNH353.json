@@ -1,0 +1,157 @@
+{
+ "meta": {
+  "goldenCopy": {
+   "publishDate": "2026-10-08T00:00:00Z"
+  }
+ },
+ "data": {
+  "type": "lei-records",
+  "id": "549300Q6ZNO3WMDNH353",
+  "attributes": {
+   "lei": "549300Q6ZNO3WMDNH353",
+   "entity": {
+    "legalName": {
+     "name": "IKEA PROPERTIES INVESTMENTS LIMITED",
+     "language": "en"
+    },
+    "otherNames": [],
+    "transliteratedOtherNames": [],
+    "legalAddress": {
+     "language": "en",
+     "addressLines": [
+      "1 BOW CHURCHYARD"
+     ],
+     "addressNumber": null,
+     "addressNumberWithinBuilding": null,
+     "mailRouting": null,
+     "city": "LONDON",
+     "region": "GB-LND",
+     "country": "GB",
+     "postalCode": "EC4M 9DQ"
+    },
+    "headquartersAddress": {
+     "language": "en",
+     "addressLines": [
+      "1 BOW CHURCHYARD"
+     ],
+     "addressNumber": null,
+     "addressNumberWithinBuilding": null,
+     "mailRouting": null,
+     "city": "LONDON",
+     "region": "GB-LND",
+     "country": "GB",
+     "postalCode": "EC4M 9DQ"
+    },
+    "registeredAt": {
+     "id": "RA000585",
+     "other": null
+    },
+    "registeredAs": "03026333",
+    "jurisdiction": "GB",
+    "category": "GENERAL",
+    "legalForm": {
+     "id": "H0PO",
+     "other": null
+    },
+    "associatedEntity": {
+     "lei": null,
+     "name": null
+    },
+    "status": "ACTIVE",
+    "expiration": {
+     "date": null,
+     "reason": null
+    },
+    "successorEntity": {
+     "lei": null,
+     "name": null
+    },
+    "successorEntities": [],
+    "creationDate": "1995-02-24T05:00:00Z",
+    "subCategory": null,
+    "otherAddresses": [],
+    "eventGroups": [
+     {
+      "groupType": "STANDALONE",
+      "events": [
+       {
+        "validationDocuments": "ACCOUNTS_FILING",
+        "effectiveDate": "2025-07-21T00:00:00Z",
+        "recordedDate": "2025-07-21T08:48:29Z",
+        "type": "CHANGE_LEGAL_ADDRESS",
+        "status": "COMPLETED"
+       }
+      ]
+     },
+     {
+      "groupType": "STANDALONE",
+      "events": [
+       {
+        "validationDocuments": "ACCOUNTS_FILING",
+        "effectiveDate": "2025-07-21T00:00:00Z",
+        "recordedDate": "2025-07-21T08:47:59Z",
+        "type": "CHANGE_HQ_ADDRESS",
+        "status": "COMPLETED"
+       }
+      ]
+     }
+    ]
+   },
+   "registration": {
+    "initialRegistrationDate": "2014-01-14T03:08:00Z",
+    "lastUpdateDate": "2026-07-29T09:57:37Z",
+    "status": "ISSUED",
+    "nextRenewalDate": "2027-09-12T00:00:00Z",
+    "managingLou": "213800WAVVOPS85N2205",
+    "corroborationLevel": "FULLY_CORROBORATED",
+    "validatedAt": {
+     "id": "RA000585",
+     "other": null
+    },
+    "validatedAs": "03026333",
+    "otherValidationAuthorities": []
+   },
+   "bic": null,
+   "mic": null,
+   "ocid": "gb/03026333",
+   "qcc": "QGBH10Y0KD",
+   "gem": null,
+   "spglobal": [
+    "23375841"
+   ],
+   "conformityFlag": "CONFORMING"
+  },
+  "relationships": {
+   "managing-lou": {
+    "links": {
+     "related": "https://api.gleif.org/api/v1/lei-records/549300Q6ZNO3WMDNH353/managing-lou"
+    }
+   },
+   "lei-issuer": {
+    "links": {
+     "related": "https://api.gleif.org/api/v1/lei-records/549300Q6ZNO3WMDNH353/lei-issuer"
+    }
+   },
+   "field-modifications": {
+    "links": {
+     "related": "https://api.gleif.org/api/v1/lei-records/549300Q6ZNO3WMDNH353/field-modifications"
+    }
+   },
+   "direct-parent": {
+    "links": {
+     "relationship-record": "https://api.gleif.org/api/v1/lei-records/549300Q6ZNO3WMDNH353/direct-parent-relationship",
+     "lei-record": "https://api.gleif.org/api/v1/lei-records/549300Q6ZNO3WMDNH353/direct-parent"
+    }
+   },
+   "ultimate-parent": {
+    "links": {
+     "relationship-record": "https://api.gleif.org/api/v1/lei-records/549300Q6ZNO3WMDNH353/ultimate-parent-relationship",
+     "lei-record": "https://api.gleif.org/api/v1/lei-records/549300Q6ZNO3WMDNH353/ultimate-parent"
+    }
+   }
+  },
+  "links": {
+   "self": "https://api.gleif.org/api/v1/lei-records/549300Q6ZNO3WMDNH353"
+  }
+ }
+}

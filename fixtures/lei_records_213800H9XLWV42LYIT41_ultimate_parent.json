@@ -1,0 +1,174 @@
+{
+ "meta": {
+  "goldenCopy": {
+   "publishDate": "2026-10-08T00:00:00Z"
+  }
+ },
+ "data": {
+  "type": "lei-records",
+  "id": "F5WCUMTUM4RKZ1MAIE39",
+  "attributes": {
+   "lei": "F5WCUMTUM4RKZ1MAIE39",
+   "entity": {
+    "legalName": {
+     "name": "AXA",
+     "language": "fr"
+    },
+    "otherNames": [],
+    "transliteratedOtherNames": [],
+    "legalAddress": {
+     "language": "fr",
+     "addressLines": [
+      "25 AVENUE MATIGNON",
+      "DIRECTION JURIDIQUE CENTRALE"
+     ],
+     "addressNumber": null,
+     "addressNumberWithinBuilding": null,
+     "mailRouting": null,
+     "city": "PARIS",
+     "region": "FR-75C",
+     "country": "FR",
+     "postalCode": "75008"
+    },
+    "headquartersAddress": {
+     "language": "fr",
+     "addressLines": [
+      "25 AVENUE MATIGNON",
+      "DIRECTION JURIDIQUE CENTRALE"
+     ],
+     "addressNumber": null,
+     "addressNumberWithinBuilding": null,
+     "mailRouting": null,
+     "city": "PARIS",
+     "region": "FR-75C",
+     "country": "FR",
+     "postalCode": "75008"
+    },
+    "registeredAt": {
+     "id": "RA000189",
+     "other": null
+    },
+    "registeredAs": "572093920",
+    "jurisdiction": "FR",
+    "category": "GENERAL",
+    "legalForm": {
+     "id": "K65D",
+     "other": null
+    },
+    "associatedEntity": {
+     "lei": null,
+     "name": null
+    },
+    "status": "ACTIVE",
+    "expiration": {
+     "date": null,
+     "reason": null
+    },
+    "successorEntity": {
+     "lei": null,
+     "name": null
+    },
+    "successorEntities": [],
+    "creationDate": "1956-12-31T23:00:00Z",
+    "subCategory": null,
+    "otherAddresses": [],
+    "eventGroups": [
+     {
+      "groupType": "STANDALONE",
+      "events": [
+       {
+        "validationDocuments": "REGULATORY_FILING",
+        "effectiveDate": "2022-06-30T22:00:00Z",
+        "recordedDate": "2024-08-27T13:42:12Z",
+        "type": "ABSORPTION",
+        "status": "COMPLETED"
+       }
+      ]
+     },
+     {
+      "groupType": "STANDALONE",
+      "events": [
+       {
+        "validationDocuments": "REGULATORY_FILING",
+        "effectiveDate": "2018-12-20T23:00:00Z",
+        "recordedDate": "2024-08-27T13:42:12Z",
+        "type": "ABSORPTION",
+        "status": "COMPLETED"
+       }
+      ]
+     }
+    ]
+   },
+   "registration": {
+    "initialRegistrationDate": "2012-06-05T22:00:00Z",
+    "lastUpdateDate": "2026-07-30T20:10:41Z",
+    "status": "ISSUED",
+    "nextRenewalDate": "2027-08-31T08:18:34Z",
+    "managingLou": "969500Q2MA9VBQ8BG884",
+    "corroborationLevel": "FULLY_CORROBORATED",
+    "validatedAt": {
+     "id": "RA000189",
+     "other": null
+    },
+    "validatedAs": "572093920",
+    "otherValidationAuthorities": []
+   },
+   "bic": null,
+   "mic": null,
+   "ocid": "fr/572093920",
+   "qcc": null,
+   "gem": null,
+   "spglobal": [
+    "121238"
+   ],
+   "conformityFlag": "CONFORMING"
+  },
+  "relationships": {
+   "managing-lou": {
+    "links": {
+     "related": "https://api.gleif.org/api/v1/lei-records/F5WCUMTUM4RKZ1MAIE39/managing-lou"
+    }
+   },
+   "lei-issuer": {
+    "links": {
+     "related": "https://api.gleif.org/api/v1/lei-records/F5WCUMTUM4RKZ1MAIE39/lei-issuer"
+    }
+   },
+   "field-modifications": {
+    "links": {
+     "related": "https://api.gleif.org/api/v1/lei-records/F5WCUMTUM4RKZ1MAIE39/field-modifications"
+    }
+   },
+   "direct-parent": {
+    "links": {
+     "reporting-exception": "https://api.gleif.org/api/v1/lei-records/F5WCUMTUM4RKZ1MAIE39/direct-parent-reporting-exception"
+    }
+   },
+   "ultimate-parent": {
+    "links": {
+     "reporting-exception": "https://api.gleif.org/api/v1/lei-records/F5WCUMTUM4RKZ1MAIE39/ultimate-parent-reporting-exception"
+    }
+   },
+   "direct-children": {
+    "links": {
+     "relationship-records": "https://api.gleif.org/api/v1/lei-records/F5WCUMTUM4RKZ1MAIE39/direct-child-relationships",
+     "related": "https://api.gleif.org/api/v1/lei-records/F5WCUMTUM4RKZ1MAIE39/direct-children"
+    }
+   },
+   "ultimate-children": {
+    "links": {
+     "relationship-records": "https://api.gleif.org/api/v1/lei-records/F5WCUMTUM4RKZ1MAIE39/ultimate-child-relationships",
+     "related": "https://api.gleif.org/api/v1/lei-records/F5WCUMTUM4RKZ1MAIE39/ultimate-children"
+    }
+   },
+   "isins": {
+    "links": {
+     "related": "https://api.gleif.org/api/v1/lei-records/F5WCUMTUM4RKZ1MAIE39/isins"
+    }
+   }
+  },
+  "links": {
+   "self": "https://api.gleif.org/api/v1/lei-records/F5WCUMTUM4RKZ1MAIE39"
+  }
+ }
+}
